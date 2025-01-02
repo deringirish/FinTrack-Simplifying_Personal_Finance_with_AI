@@ -1,6 +1,31 @@
-# Receipt Scanner Application
+# AI-Powered Receipt Scanning and Personal Finance Management
 
-A **Streamlit-based** application that can scan receipts using image upload or manual entry. The application uses Google's Gemini AI for image processing and MongoDB for data storage.
+This project leverages cutting-edge AI and OCR technologies to automatically scan and process receipts, providing real-time personal finance management insights. It eliminates the need for manual expense tracking by extracting data from receipts, categorizing expenses, and offering predictive financial analytics. The application is built using Python, integrating Google’s Gemini API for AI-powered receipt scanning, and MongoDB for scalable, unstructured data storage.
+
+### Features:
+- **AI-Powered Receipt Scanning:** Scans receipts using Google’s Gemini API, extracting transaction details such as store name, total amount, and purchase date.
+- **Advanced OCR:** Recognizes and extracts data from various receipt formats (printed/handwritten), improving accuracy and usability.
+- **Expense Categorization & Analytics:** Automatically categorizes expenses (e.g., food, transportation) and provides detailed financial insights.
+- **Scalable NoSQL Database:** Uses MongoDB to store and manage transaction data, ensuring scalability for large volumes of receipts.
+- **User-Friendly Interface:** Simple interface for uploading receipts, viewing categorized expenses, and tracking budgets.
+
+### Problem Solved:
+- **Automates Expense Tracking:** Eliminates the need for manual data entry and reduces errors in expense management.
+- **Improves Financial Visibility:** Provides users with detailed insights into their spending habits, helping with budgeting and financial planning.
+- **Scalable Solution:** Designed to handle a large volume of receipts and financial data for personal and business use.
+
+### Potential Use Cases:
+- **Personal Finance Management:** Track expenses and optimize budgets with AI-powered analytics.
+- **Small Business Accounting:** Streamline receipt processing and financial reporting for small business owners.
+- **Tax Preparation:** Simplify tax reporting with categorized and organized receipt data.
+
+---
+
+Feel free to add any additional details or customizations specific to your repository. This concise description captures the core features, use cases, and technologies used in the project, making it easy for users to understand its purpose and capabilities when browsing your GitHub repository.
+
+
+# Prerequisites and Setup Guide
+
 
 ## Prerequisites
 
