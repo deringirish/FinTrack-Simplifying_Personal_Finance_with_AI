@@ -21,8 +21,6 @@ This project leverages cutting-edge AI and OCR technologies to automatically sca
 
 ---
 
-Feel free to add any additional details or customizations specific to your repository. This concise description captures the core features, use cases, and technologies used in the project, making it easy for users to understand its purpose and capabilities when browsing your GitHub repository.
-
 
 # Prerequisites and Setup Guide
 
