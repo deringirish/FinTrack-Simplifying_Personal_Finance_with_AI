@@ -51,7 +51,7 @@ def display_all_data():
 
 def show_graph():
     """
-    Fetch data from the database, sanitize it, and display it as a line chart.
+    Fetch data from the database, sanitize it, and display it as a bar chart.
     Handles None values and ensures data integrity before plotting.
     """
     collection = database_setup()
@@ -100,22 +100,17 @@ def show_graph():
             # Plotting the data
             labels = list(category_total.keys())
             sizes = list(category_total.values())
-
             fig, ax = plt.subplots(figsize=(10, 4))
-
-            # Create a line chart without dots (no markers) and labels
-            ax.plot(labels, sizes, color='blue', linestyle='-', linewidth=2)
-
-            # Remove x-axis and y-axis labels
-            ax.set_xlabel('')
-            ax.set_ylabel('')
-            ax.set_title('')  # Remove chart title if needed
-
+            ax.bar(labels, sizes, color='blue')
+            ax.set_xlabel('Category')
+            ax.set_ylabel('Total Price ($)')
+            ax.set_title('Total Price by Category')
             # Rotate x-axis labels for better readability
             plt.xticks(rotation=90)
 
-            # Adjust layout for better readability
-            plt.tight_layout()
+            # Display category totals as text on the graph
+            for i, v in enumerate(sizes):
+                ax.text(i, v + 10, f'{v:.2f}', ha='center')
 
             # Display the graph in Streamlit
             st.pyplot(fig)
