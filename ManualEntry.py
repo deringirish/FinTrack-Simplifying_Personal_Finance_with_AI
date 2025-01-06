@@ -3,7 +3,6 @@ from datetime import datetime
 import DisplayDetails
 import DataBaseLogic
 
-# Initial JSON data
 json_data = {
     "store": {
         "store_name": None,
@@ -22,26 +21,21 @@ json_data = {
     }
 }
 
-
 def manual_entry():
-    st.title("Modify JSON Data")
+    st.subheader("Manual Entry of Receipt Details...")
 
-    # Define the form
     with st.form("json_form", clear_on_submit=False):
-        # Store Details Section
         st.subheader("Store Details")
         store_name = st.text_input(
             "Store Name", key="store_name", value=st.session_state.get("store_name", ""))
         address = st.text_input("Address", key="address",value=st.session_state.get("address", ""))
 
-        # Transaction Details Section
         st.subheader("Transaction Details")
         transaction_id = st.text_input("Transaction ID", key="transaction_id", value=st.session_state.get("transaction_id", ""))
         date = st.date_input("Date (YYYY-MM-DD)", key="date",value=st.session_state.get("date", None))
 
         time = st.number_input("Time (HH.MM)", min_value=0.0, max_value=24.0, format="%.2f", step=0.01, key="time",value=st.session_state.get("time", None))
 
-        # Items Section
         st.subheader("Items")
         if "component_count" not in st.session_state:
             st.session_state.component_count = len(st.session_state.get("items", [])) + 1
@@ -70,11 +64,9 @@ def manual_entry():
                                "Pets & Animal Care", "Miscellaneous", "Other"].index(st.session_state.get(f"dropdown_{i}", "None"))
                     )
 
-        # Add button to add more items
         if st.form_submit_button("Add Another Item"):
             st.session_state.component_count += 1
 
-        # Summary Details Section
         st.subheader("Summary Details")
         discount = st.number_input(
             "Discount", min_value=0.0, format="%.2f", step=0.1, key="discount", value=st.session_state.get("discount", None))
@@ -83,18 +75,15 @@ def manual_entry():
         tax = st.number_input("Tax", min_value=0.0,
                               format="%.2f", step=0.1, key="tax", value=st.session_state.get("tax",None))
 
-        # Reset Button
         if st.form_submit_button("Reset Form"):
             for key in list(st.session_state.keys()):
                 if key.startswith("text_field1_") or key.startswith("text_field2_") or key.startswith("dropdown_"):
                     del st.session_state[key]
             st.session_state.component_count = 1
 
-        # Submit Button
         submitted = st.form_submit_button("Submit")
         if submitted:
             st.markdown("---")
-            # Update JSON data
             json_data["store"]["store_name"] = store_name if store_name else None
             json_data["store"]["address"] = address if address else None
             json_data["transaction"]["id"] = transaction_id if transaction_id else None
@@ -117,8 +106,6 @@ def manual_entry():
             json_data["summary"]["grand_total"] = grand_total
             json_data["summary"]["tax"] = tax
 
-            # Display JSON for user feedback
-            # Pass data to DisplayDetails for further processing
             updated_json_data = DisplayDetails.print_response_from_manual_entry(json_data)
             print(updated_json_data)
             DataBaseLogic.upload_to_database(updated_json_data)

@@ -4,7 +4,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import DisplayDetails
 
-# Global client variable
 client = None
 
 
@@ -37,10 +36,8 @@ def display_all_data():
     if collection is not None:
         try:
             documents = collection.find()  
-            # Convert cursor to list of documents
             data_list = [doc for doc in documents]
             for index, doc in enumerate(data_list):
-                # Display each document in a list-wise format
                 st.header(f"Data {index + 1}")
                 DisplayDetails.print_response_from_image(doc)
         except Exception as e:
@@ -57,29 +54,23 @@ def show_graph():
     collection = database_setup()
     if collection is not None:
         try:
-            # Fetch the data
             data = list(collection.find())
 
             if not data:
                 st.error("No data available in the collection.")
                 return
 
-            # Convert the data to a pandas DataFrame
             df = pd.DataFrame(data)
 
-            # Check if the DataFrame is empty
             if df.empty:
                 st.error("No valid data to display.")
                 return
 
-            # Initialize a dictionary to store the total price for each category
             category_total = {}
 
-            # Iterate over the data to calculate total price per category
             for index, row in df.iterrows():
                 if "items" in row and row["items"]:
                     for item in row["items"]:
-                        # Validate category and total_price fields
                         category = item.get("category")
                         price = item.get("total_price")
 
@@ -92,12 +83,10 @@ def show_graph():
                                 st.warning(
                                     f"Invalid price value for item: {item}")
 
-            # Ensure there is data to plot
             if not category_total:
                 st.error("No valid category data to display.")
                 return
 
-            # Plotting the data
             labels = list(category_total.keys())
             sizes = list(category_total.values())
             fig, ax = plt.subplots(figsize=(10, 4))
@@ -105,17 +94,13 @@ def show_graph():
             ax.set_xlabel('Category')
             ax.set_ylabel('Total Price ($)')
             ax.set_title('Total Price by Category')
-            # Rotate x-axis labels for better readability
             plt.xticks(rotation=90)
 
-            # Display category totals as text on the graph
             for i, v in enumerate(sizes):
                 ax.text(i, v + 10, f'{v:.2f}', ha='center')
 
-            # Display the graph in Streamlit
             st.pyplot(fig)
 
-            # Display the category totals as a table
             summary_df = pd.DataFrame(list(category_total.items()), columns=[
                                       'Category', 'Total Price'])
             st.table(summary_df)
