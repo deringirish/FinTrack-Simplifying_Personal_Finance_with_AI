@@ -1,13 +1,14 @@
 # AI-Powered Receipt Scanning and Personal Finance Management
 
-This project leverages cutting-edge AI and OCR technologies to automatically scan and process receipts, providing real-time personal finance management insights. It eliminates the need for manual expense tracking by extracting data from receipts, categorizing expenses, and offering predictive financial analytics. The application is built using Python, integrating Google’s Gemini API for AI-powered receipt scanning, and MongoDB for scalable, unstructured data storage.
+This project leverages cutting-edge AI and OCR technologies to automatically scan and process receipts, providing real-time personal finance management insights. It eliminates the need for manual expense tracking by extracting data from receipts, categorizing expenses, and offering predictive financial analytics. The application is built using Python, integrating Google's Gemini API for AI-powered receipt scanning, and MongoDB for scalable, unstructured data storage.
 
 ### Features:
-- **AI-Powered Receipt Scanning:** Scans receipts using Google’s Gemini API, extracting transaction details such as store name, total amount, and purchase date.
-- **Advanced OCR:** Recognizes and extracts data from various receipt formats (printed/handwritten), improving accuracy and usability.
-- **Expense Categorization & Analytics:** Automatically categorizes expenses (e.g., food, transportation) and provides detailed financial insights.
-- **Scalable NoSQL Database:** Uses MongoDB to store and manage transaction data, ensuring scalability for large volumes of receipts.
-- **User-Friendly Interface:** Simple interface for uploading receipts, viewing categorized expenses, and tracking budgets.
+- **AI-Powered Receipt Scanning:** Scans receipts using Google's Gemini API, extracting transaction details such as store name, total amount, and purchase date.  
+- **Advanced OCR:** Recognizes and extracts data from various receipt formats, including **printed and handwritten receipts**, improving accuracy and usability.  
+- **Expense Categorization & Analytics:** Automatically categorizes expenses (e.g., food, transportation) and provides detailed financial insights.  
+- **Scalable NoSQL Database:** Uses MongoDB to store and manage transaction data, ensuring scalability for large volumes of receipts.  
+- **User-Friendly Interface:** Simple interface for uploading receipts, viewing categorized expenses, and tracking budgets.  
+
 
 ### Problem Solved:
 - **Automates Expense Tracking:** Eliminates the need for manual data entry and reduces errors in expense management.
@@ -21,9 +22,7 @@ This project leverages cutting-edge AI and OCR technologies to automatically sca
 
 ---
 
-
 # Prerequisites and Setup Guide
-
 
 ## Prerequisites
 
@@ -47,7 +46,7 @@ Before you begin, ensure you have the following installed on your computer:
 
 **Important Notes:**
 - Keep your API key secret
-- Don’t commit it to version control
+- Don't commit it to version control
 - The free tier includes:
   - 60 requests per minute
   - Maximum 32k context tokens
@@ -86,7 +85,7 @@ source venv/bin/activate
 ### 4. Install Required Packages
 With the virtual environment activated, run:
 ```bash
-pip install streamlit pandas pillow python-dotenv google-generativeai pymongo matplotlib
+pip install streamlit pandas pillow python-dotenv google-generativeai pymongo matplotlib streamlit-back-camera-input
 ```
 
 ### 5. Set Up MongoDB
@@ -115,11 +114,19 @@ The application should open in your default web browser.
 
 ## Using the Application
 
+
 ### Image Upload
 1. Click on **"🖼️ Image Upload"** tab.
 2. Upload a receipt image.
 3. Click **"Analyse Receipt"**.
 4. View the extracted information.
+
+### Camera Upload 
+1. Click on **"📸 Camera Upload"** tab
+2. Enable camera when prompted
+3. Position receipt in frame
+4. Capture image
+5. View analysis results
 
 ### Manual Entry
 1. Click on **"📝 Manual Entry"** tab.
@@ -134,6 +141,24 @@ The application should open in your default web browser.
 2. View:
    - Graphical representation of spending.
    - Detailed receipt history.
+
+## Project Structure
+```
+receipt_scanner/
+├── .env
+├── Home.py               # Main application entry
+├── Input.py             # Gemini API prompt template
+├── ImageUpload.py       # Image upload handling
+├── CameraUpload.py      # Camera capture functionality
+├── ManualEntry.py       # Manual data entry
+├── DatabaseLogic.py     # MongoDB operations
+├── DisplayDetails.py    # Data visualization
+├── GeminiIntegration.py # AI integration
+├── Helper.py           # Utility functions
+├── requirements.txt    # Package dependencies
+└── pages/
+    └── Receipt History.py # Analytics dashboard
+```
 
 ## Troubleshooting
 
@@ -167,20 +192,43 @@ The application should open in your default web browser.
    - Try generating a new API key if issues persist.
 
 2. **"Quota Exceeded" Error**
-   - You’ve reached the API usage limit.
+   - You've reached the API usage limit.
    - Wait for the quota to reset (usually at the start of the next minute).
    - Consider upgrading to a paid tier for higher limits.
 
-## Project Structure
-```
-receipt_scanner/
-├── .env
-├── Home.py
-├── Input.py
-├── ImageUpload.py
-├── ManualEntry.py
-├── DatabaseLogic.py
-├── DisplayDetails.py
-└── pages/
-    └── ReceiptHistory.py
-```
+## Additional Features
+
+### Image Enhancement Pipeline
+- Grayscale conversion
+- Sharpness adjustment
+- Brightness optimization
+- Edge enhancement
+- Resolution optimization
+
+### Supported Categories
+- Food & Beverages
+- Health & Personal Care
+- Clothing & Apparel
+- Electronics & Gadgets
+- Home & Furniture
+- Utilities & Bills
+- Transportation
+- Entertainment
+- Office Supplies
+- Pets & Animal Care
+- Miscellaneous
+- Other
+
+### Security Features
+- Secure API key management
+- Data validation and sanitization
+- MongoDB security best practices
+- Safe image processing
+
+---
+
+<img src="Assets/FintrackImage.png" alt="Receipt Scanner Application Demo" />
+
+---
+
+**Note**: This application is continuously being improved. Feel free to suggest features or report bugs through GitHub issues.
