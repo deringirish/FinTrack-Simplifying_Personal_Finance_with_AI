@@ -10,21 +10,32 @@ client = None
 def database_setup():
     global client
     try:
-        client = MongoClient("mongodb://localhost:27017")
+        client = MongoClient("mongodb://localhost:27017",
+                             serverSelectionTimeoutMS=5000)
         db = client["receipt_scanner"]
+        client.server_info()  # Check connection
         collection = db["receipts"]
-        return collection 
+        return collection
     except Exception as e:
         st.error(f"Failed to configure MongoDB: {e}")
         return None
 
 
 def upload_to_database(json_data):
-    collection = database_setup()  
-    if collection is not None: 
+    """
+    Upload data to MongoDB without providing an `_id`.
+    MongoDB will generate a unique `_id` automatically.
+    """
+    collection = database_setup()
+    if collection is not None:
         try:
+            # Ensure `_id` is not in the data to let MongoDB auto-generate it
+            if "_id" in json_data:
+                del json_data["_id"]
+
             result = collection.insert_one(json_data)
-            st.success("Data successfully saved to MongoDB!")
+            st.success(f"Data successfully saved to MongoDB with ID: {
+                       result.inserted_id}")
         except Exception as e:
             st.error(f"Failed to save data to MongoDB: {e}")
     else:
@@ -32,10 +43,10 @@ def upload_to_database(json_data):
 
 
 def display_all_data():
-    collection = database_setup()  
+    collection = database_setup()
     if collection is not None:
         try:
-            documents = collection.find()  
+            documents = collection.find()
             data_list = [doc for doc in documents]
             for index, doc in enumerate(data_list):
                 st.header(f"Data {index + 1}")
@@ -47,10 +58,6 @@ def display_all_data():
 
 
 def show_graph():
-    """
-    Fetch data from the database, sanitize it, and display it as a bar chart.
-    Handles None values and ensures data integrity before plotting.
-    """
     collection = database_setup()
     if collection is not None:
         try:
@@ -81,7 +88,8 @@ def show_graph():
                                     category, 0) + price
                             except ValueError:
                                 st.warning(
-                                    f"Invalid price value for item: {item}")
+                                    f"Invalid price value for item: {item}"
+                                )
 
             if not category_total:
                 st.error("No valid category data to display.")
@@ -101,8 +109,9 @@ def show_graph():
 
             st.pyplot(fig)
 
-            summary_df = pd.DataFrame(list(category_total.items()), columns=[
-                                      'Category', 'Total Price'])
+            summary_df = pd.DataFrame(
+                list(category_total.items()), columns=["Category", "Total Price"]
+            )
             st.table(summary_df)
 
         except Exception as e:
