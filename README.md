@@ -226,9 +226,7 @@ receipt_scanner/
 - Safe image processing
 
 ---
-
-<img src="Assets/FintrackImage.png" alt="Receipt Scanner Application Demo" />
-
+ ![Receipt Scanner Application Demo](https://github.com/deringirish/FinTrack-Simplifying_Personal_Finance_with_AI/blob/main/Assets/FinTrack-Project-Image.png?raw=true)
 ---
 
 **Note**: This application is continuously being improved. Feel free to suggest features or report bugs through GitHub issues.
